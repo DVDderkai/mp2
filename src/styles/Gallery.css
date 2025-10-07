@@ -1,0 +1,7 @@
+.filters{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;flex-wrap:wrap}
+.chipset{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #e5e5ea;border-radius:999px;background:#fff;cursor:pointer;user-select:none;text-transform:capitalize}
+.chip input{display:none}
+.chip.active{background:#f2f2ff;border-color:#d9d9ff}
+.clear{padding:8px 12px;border:1px solid #e5e5ea;border-radius:10px;background:#fff;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}

@@ -1,0 +1,23 @@
+.detail-card{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;background:#fff;border-radius:20px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.left{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f7f7fc,#fff);border-radius:16px;min-height:300px}
+.left img{max-width:100%;max-height:320px}
+.right .heading{display:flex;align-items:baseline;gap:12px}
+.pid{color:#999;font-family:ui-monospace,Menlo,Consolas,monospace}
+.pname{margin:0;text-transform:capitalize}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.kv label{display:block;font-size:12px;color:#888}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.pill{padding:4px 10px;border-radius:999px;background:#f5f5f5;text-transform:capitalize;font-size:12px}
+.stats{margin-top:16px;display:grid;gap:8px}
+.stat{display:grid;grid-template-columns:120px 1fr 40px;align-items:center;gap:10px}
+.prog{width:100%;height:8px}
+.navrow{display:flex;justify-content:space-between;margin-top:16px}
+.navrow button{padding:10px 14px;border:1px solid #e5e5ea;border-radius:10px;background:#fff;cursor:pointer}
+
+/* 类型色块（简洁版） */
+.t-fire{background:#ffe6e0}.t-water{background:#e0f0ff}.t-grass{background:#e5ffe6}.t-electric{background:#fff7cc}
+.t-ice{background:#e0f7ff}.t-fighting{background:#ffe0e0}.t-poison{background:#f5e0ff}.t-ground{background:#f8efe0}
+.t-flying{background:#e9f0ff}.t-psychic{background:#ffe0f2}.t-bug{background:#f0ffe0}.t-rock{background:#f0e6d6}
+.t-ghost{background:#efe6ff}.t-dragon{background:#e0e6ff}.t-dark{background:#ececec}.t-steel{background:#e6eef5}.t-fairy{background:#ffeaf1}.t-normal{background:#f2f2f2}
+
+@media (max-width:900px){.detail-card{grid-template-columns:1fr}}

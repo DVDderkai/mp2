@@ -1,0 +1,7 @@
+.poke-card{display:block;background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .12s,box-shadow .12s;text-decoration:none;color:inherit}
+.poke-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.poke-card .thumb{display:flex;justify-content:center;align-items:center;height:160px;background:linear-gradient(180deg,#f7f7fc,#fff);border-radius:12px;overflow:hidden}
+.poke-card img{max-height:140px;max-width:100%}
+.poke-card .meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.poke-card .id{font-family:ui-monospace,Menlo,Consolas,monospace;color:#999}
+.poke-card .name{text-transform:capitalize;font-size:16px;margin:0}
