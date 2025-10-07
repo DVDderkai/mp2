@@ -1,44 +1,34 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getPokemonPage, PokemonListItem } from '../api';
+import { getPokemonList, PokemonListItem } from '../api';
 import PokemonCard from '../components/PokemonCard';
 import Loading from '../components/Loading';
 import '../styles/List.css';
 
-const PAGE_SIZE = 60;
-
 export default function ListView() {
   const [all, setAll] = useState<PokemonListItem[]>([]);
-  const [total, setTotal] = useState<number | null>(null);
-  const [offset, setOffset] = useState(0);
-
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-
   const [q, setQ] = useState('');
   const [sortKey, setSortKey] = useState<'id'|'name'>('id');
   const [dir, setDir] = useState<'asc'|'desc'>('asc');
 
-  async function loadPage(first: boolean) {
-    try {
-      first ? setLoading(true) : setLoadingMore(true);
-      const { items, total } = await getPokemonPage(PAGE_SIZE, first ? 0 : offset);
-      setTotal(total);
-      setAll(prev => first ? items : [...prev, ...items]);
-      setOffset(prev => first ? PAGE_SIZE : prev + PAGE_SIZE);
-    } finally {
-      first ? setLoading(false) : setLoadingMore(false);
-    }
-  }
-
-  useEffect(() => { loadPage(true); }, []);
-
-  const hasMore = total === null ? true : all.length < total;
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        // 一次性请求全部宝可梦（limit=100000）
+        const data = await getPokemonList(100000, 0);
+        setAll(data);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   const filtered = useMemo(() => {
     const norm = q.trim().toLowerCase();
     let arr = norm ? all.filter(p => p.name.includes(norm) || String(p.id).includes(norm)) : all.slice();
     arr.sort((a, b) => {
-      const v = (sortKey === 'id') ? (a.id - b.id) : a.name.localeCompare(b.name);
+      const v = sortKey === 'id' ? (a.id - b.id) : a.name.localeCompare(b.name);
       return dir === 'asc' ? v : -v;
     });
     return arr;
@@ -49,7 +39,12 @@ export default function ListView() {
   return (
     <div className="page list-page">
       <div className="toolbar">
-        <input className="search" placeholder="Search by name or #id" value={q} onChange={e => setQ(e.target.value)} />
+        <input
+          className="search"
+          placeholder="Search by name or #id"
+          value={q}
+          onChange={e => setQ(e.target.value)}
+        />
         <div className="sorters">
           <label>Sort by:</label>
           <select value={sortKey} onChange={e => setSortKey(e.target.value as any)}>
@@ -63,16 +58,14 @@ export default function ListView() {
       </div>
 
       <div className="grid">
-        {filtered.map(p => <PokemonCard key={p.id} {...p} />)}
+        {filtered.map(p => (
+          <PokemonCard key={p.id} {...p} />
+        ))}
       </div>
 
-      <div className="loadMore">
-        {hasMore && !loadingMore && (
-          <button className="btn" onClick={() => loadPage(false)}>Load more</button>
-        )}
-        {loadingMore && <Loading />}
-        {!hasMore && <div className="end">— End of list —</div>}
-      </div>
+      {!loading && all.length === 0 && (
+        <div className="end">No Pokémon found.</div>
+      )}
     </div>
   );
 }
